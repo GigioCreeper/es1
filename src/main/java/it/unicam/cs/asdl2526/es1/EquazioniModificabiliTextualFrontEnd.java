@@ -49,7 +49,7 @@ public class EquazioniModificabiliTextualFrontEnd {
                         System.out.println(
                                 "Errore: Il valore del parametro a non può essere zero! Ritenta...");
                         retry = true;
-                    }
+                    }else retry = false; //aggiunto perché non cicla se a > 0, quindi può continuare
                 } catch (IOException e) {
                     System.err.println("Errore di Input/Output!");
                     System.exit(1);
