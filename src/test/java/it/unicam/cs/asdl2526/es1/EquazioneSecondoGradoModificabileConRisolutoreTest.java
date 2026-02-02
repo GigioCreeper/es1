@@ -51,38 +51,60 @@ class EquazioneSecondoGradoModificabileConRisolutoreTest {
 
     @Test
     final void testSetA() {
-        // TODO implementare
-        fail("Test non implementato");
+        // TODO implementare *
+        double x = 10;
+        double y = 20;
+        EquazioneSecondoGradoModificabileConRisolutore e1 = new EquazioneSecondoGradoModificabileConRisolutore(x, 2 ,3);
+        e1.setA(y);
+        assertEquals(y, e1.getA());
+        assertThrows(IllegalArgumentException.class, () -> {
+            EquazioneSecondoGradoModificabileConRisolutore e2 = new EquazioneSecondoGradoModificabileConRisolutore(2, 3, 4);
+            e2.setA(0);
+        });
     }
 
     @Test
     final void testGetB() {
-        // TODO implementare
-        fail("Test non implementato");
+        // TODO implementare *
+        double x = 10;
+        EquazioneSecondoGradoModificabileConRisolutore e1 = new EquazioneSecondoGradoModificabileConRisolutore(
+                2, x, 1);
+        assertEquals(x, e1.getB());
     }
 
     @Test
     final void testSetB() {
-        // TODO implementare
-        fail("Test non implementato");
+        // TODO implementare *
+        double x = 10;
+        double y = 20;
+        EquazioneSecondoGradoModificabileConRisolutore e1 = new EquazioneSecondoGradoModificabileConRisolutore(2, x ,3);
+        e1.setB(y);
+        assertEquals(y, e1.getB());
     }
 
     @Test
     final void testGetC() {
-        // TODO implementare
-        fail("Test non implementato");
+        // TODO implementare *
+        double x = 10;
+        EquazioneSecondoGradoModificabileConRisolutore e1 = new EquazioneSecondoGradoModificabileConRisolutore(
+                2, 2, x);
+        assertEquals(x, e1.getC());
     }
 
     @Test
     final void testSetC() {
-        // TODO implementare
-        fail("Test non implementato");
+        // TODO implementare *
+        double x = 10;
+        double y = 20;
+        EquazioneSecondoGradoModificabileConRisolutore e1 = new EquazioneSecondoGradoModificabileConRisolutore(2, 2 ,x);
+        e1.setC(y);
+        assertEquals(y, e1.getC());
     }
 
     @Test
     final void testIsSolved() {
-        // TODO implementare
-        fail("Test non implementato");
+        EquazioneSecondoGradoModificabileConRisolutore e1 = new EquazioneSecondoGradoModificabileConRisolutore(2, 2,2);
+        assertFalse(e1.isSolved());
     }
 
     @Test
@@ -97,8 +119,13 @@ class EquazioneSecondoGradoModificabileConRisolutoreTest {
 
     @Test
     final void testGetSolution() {
-        // TODO implementare
-        fail("Test non implementato");
-    }
+        EquazioneSecondoGradoModificabileConRisolutore e1 = new EquazioneSecondoGradoModificabileConRisolutore(2, 3,1);
+        assertThrows(IllegalStateException.class, () -> {e1.getSolution();});
+        e1.solve();
+        assertFalse(e1.getSolution().isOneSolution());
+        assertFalse(e1.getSolution().isEmptySolution());
 
+        assertTrue(e1.getSolution().getS1() == 0.5 || e1.getSolution().getS2() == -1);
+        assertTrue(e1.getSolution().getS2() == 0.5 || e1.getSolution().getS2() == -1);
+    }
 }

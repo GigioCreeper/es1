@@ -51,7 +51,13 @@ public class EquazioneSecondoGradoModificabileConRisolutore {
      */
     public EquazioneSecondoGradoModificabileConRisolutore(double a, double b,
             double c) {
-        // TODO implementare
+                if(a == 0){throw new IllegalArgumentException("a cannot be zero");}
+                this.a = a;
+                this.b = b;
+                this.c = c;
+                this.solved = false;
+                this.lastSolution = null;
+        // TODO implementare *
     }
 
     /**
@@ -71,7 +77,10 @@ public class EquazioneSecondoGradoModificabileConRisolutore {
      *                                      se il nuovo valore è zero
      */
     public void setA(double a) {
-        // TODO implementare
+        // TODO implementare *
+        if (a == 0){throw new IllegalArgumentException("A cannot be zero");}
+        this.a = a;
+        solved = false;
     }
 
     /**
@@ -89,7 +98,9 @@ public class EquazioneSecondoGradoModificabileConRisolutore {
      *              il nuovo valore del parametro b
      */
     public void setB(double b) {
-        // TODO implementare
+        // TODO implementare *
+        this.b = b;
+        solved = false;
     }
 
     /**
@@ -107,7 +118,9 @@ public class EquazioneSecondoGradoModificabileConRisolutore {
      *              il nuovo valore del parametro c
      */
     public void setC(double c) {
-        // TODO implementare
+        // TODO implementare *
+        this.c = c;
+        solved = false;
     }
 
     /**
@@ -120,12 +133,47 @@ public class EquazioneSecondoGradoModificabileConRisolutore {
     }
 
     /**
+     * Determina se due double sono uguali con tolleranza EPSILON
+     * @param a primo double
+     * @param b secondo double
+     * @return true se sono uguali, false altrimenti
+     */
+    public boolean equalsDouble(double a, double b){
+        return Math.abs(a - b) <= EPSILON;
+    }
+
+    /**
      * Risolve l'equazione risultante dai parametri a, b e c correnti. Se
      * l'equazione era già stata risolta con i parametri correnti non viene
      * risolta di nuovo.
      */
     public void solve() {
-        // TODO implementare
+        // TODO implementare *
+        if (!isSolved()) {
+            double delta = (b*b) - (4 * a * c);
+            if (delta < -EPSILON) {
+                lastSolution = new SoluzioneEquazioneSecondoGrado(
+                        new EquazioneSecondoGrado(a, b, c));
+            } else if (Math.abs(delta) <= EPSILON) {
+                double sol = -b / (2 * a);
+                lastSolution = new SoluzioneEquazioneSecondoGrado(
+                        new EquazioneSecondoGrado(a, b, c),
+                        sol);
+            } else {
+                double sqrtDelta = Math.sqrt(delta);
+                double s1 = (-b + sqrtDelta) / (2 * a);
+                double s2 = (-b - sqrtDelta) / (2 * a);
+
+                if (equalsDouble(s1, 0.0)) s1 = 0.0;
+                if (equalsDouble(s2, 0.0)) s2 = 0.0;
+
+
+                lastSolution = new SoluzioneEquazioneSecondoGrado(
+                        new EquazioneSecondoGrado(a, b, c),
+                        s1, s2);
+            }
+        }
+        solved = true;
     }
 
     /**
@@ -140,8 +188,9 @@ public class EquazioneSecondoGradoModificabileConRisolutore {
      *                                   almeno uno dei parametri
      */
     public SoluzioneEquazioneSecondoGrado getSolution() {
-        // TODO implementare
-        return null;
+        // TODO implementare *
+        if(!isSolved()) {throw new IllegalStateException("The solution is not solved");}
+        else return lastSolution;
     }
 
 }
